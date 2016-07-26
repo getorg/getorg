@@ -25,21 +25,23 @@ def get_org_open_issues(github_obj, org_name_or_obj, days_open=0, comments=0, de
             
         for issue in repo.get_issues(state="open"):
             
-            # Increment the dictionary of issue counts
-            if org_issues_count.get(repo.name) is None:
-                org_issues_count[repo.name] = 1
-  
-            else:
-                org_issues_count[repo.name] += 1
-            
-           
-            # Filter for number of comments and issues 
-            # open longer than the specified period of time
+            # Filter for number of comments and issues open longer than the 
+            # period of time and with more than the number of comments
             last_updated_delta = datetime.datetime.now() - issue.updated_at
             if last_updated_delta > days_open_td and issue.comments > comments:
+
+            	# Print if debug flag is set
                 if(debug == 1):
                     print(repo.name, "#", issue.number, issue.title, ":", \
                           last_updated_delta.days, "days, ", issue.comments, "comments")
+
+	            # Increment the dictionary of issue counts
+                if org_issues_count.get(repo.name) is None:
+                	org_issues_count[repo.name] = 1
+                else:
+                	org_issues_count[repo.name] += 1
+                	org_issues_list.append(issue)
+	            # Append issue to list
                 org_issues_list.append(issue)
                 
     return org_issues_list, org_issues_count
