@@ -1,5 +1,6 @@
 /build/
 /__pycache__/
+/getorg/__pycache__/
 /.ipynb_checkpoints/
 /getorg.egg-info/
 /dist/
