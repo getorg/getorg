@@ -28,3 +28,6 @@ Getorg is built on the githubPy library for querying the Github API. Other depen
      'error_count': 0,
      'no_loc_count': 0,
      'user_loc_count': 1}
+
+## Credits
+Getorg is a package based on work originally done in [some Jupyter notebooks](https://github.com/staeiou/github-analytics) with [Carreau](https://github.com/Carreau) and [namisaghaei](https://github.com/namisaghaei).
