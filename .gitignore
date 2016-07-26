@@ -4,3 +4,5 @@
 /getorg.egg-info/
 /dist/
 ghlogin.py
+*.pyc
+/*.egg-info/
