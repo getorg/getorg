@@ -1,3 +1,10 @@
+"""
+THIS FILE IS DEPRECATED. FUNCTIONS ARE BEING TRANSFERRED TO SUB-MODULES
+
+
+
+"""
+
 import github
 from geopy.geocoders import Nominatim
 import ipywidgets
