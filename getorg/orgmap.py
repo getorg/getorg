@@ -1,6 +1,8 @@
 import github
+from getorg.core import *
 from geopy.geocoders import Nominatim
 import ipywidgets
+
 
 from ipyleaflet import (
     Map,
@@ -11,17 +13,6 @@ from ipyleaflet import (
     DrawControl
 )
 
-def handle_org_name_or_object(github_obj, org_name_or_object):
-    import github
-    if isinstance(org_name_or_object, github.Organization.Organization):
-        org = org_name_or_object
-    elif isinstance(org_name_or_object, str):
-        org = github_obj.get_organization(org_name_or_object)
-    else:
-        error_str = "Must pass a github object or string. Passed a(n) " + str(type(org_name_or_object))
-        assert False, error_str
-
-    return org    
 
 def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     """
@@ -45,6 +36,9 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     else:
         error_str = "Must pass a github object or string. Passed a(n) " + str(type(org_name_or_object))
         assert False, error_str
+
+
+
 
     # Set up empty dictionaries and metadata variables
     contributor_locs = {}
@@ -219,3 +213,9 @@ def org_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
         f.write("]}")
     f.close()
 
+def map_org(github_obj, org_name_or_object):
+    map_obj = create_map_obj()
+
+    org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object)
+    map_location_dict(map_obj, org_location_dict)
+    return map_obj, org_location_dict, org_location_metadata_dict
