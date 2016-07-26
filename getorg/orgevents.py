@@ -1,5 +1,6 @@
 import github
 from getorg.core import *
+import datetime
 
 def get_org_open_issues(github_obj, org_name_or_obj, days_open=0, comments=0, debug=1):
     """
@@ -11,7 +12,7 @@ def get_org_open_issues(github_obj, org_name_or_obj, days_open=0, comments=0, de
     
     org_issues_list = []
     org_issues_count = {}
-    org_obj = core.handle_org_name_or_object(gh, org_name_or_obj)
+    org_obj = handle_org_name_or_object(github_obj, org_name_or_obj)
     
     days_open_td = datetime.timedelta(days_open)
         

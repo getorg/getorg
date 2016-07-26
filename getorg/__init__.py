@@ -1,2 +1,2 @@
 from getorg import orgmap
-from getorg import getorg
+from getorg import orgevents
