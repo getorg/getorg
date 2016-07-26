@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='getorg',
-      version='0.1.4',
+      version='0.1.7',
       description='For mapping contributors to GitHub organizations',
       url='http://github.com/getorg/getorg',
       author='Stuart Geiger',

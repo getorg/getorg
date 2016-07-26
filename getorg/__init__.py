@@ -1,2 +1,2 @@
-from getorg import maporg
+from getorg import orgmap
 from getorg import getorg
