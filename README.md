@@ -2,14 +2,21 @@
 Get information and analytics about GitHub organizations
 
 ## Dependencies
-### Required
+### Required (installed by pip)
 * GithubPy library for querying the Github API.
 * Geopy (specifically Nominatim) for geolocating locations.
-### Recommended
+
+### Recommended (not installed by pip)
 * Jupyter notebook, ipywidgets, and ipyleaflets for plotting maps.
 
 ## Installation
+### Basic functionality
     pip install getorg
+### Mapping functionality in Jupyter notebooks (assuming Jupyter is installed)
+    pip install getorg, ipywidgets, ipyleaflets
+    jupyter nbextension enable --py ipyleaflet
+
+    
 
 ## Usage
 ### Initialization
