@@ -1,4 +1,4 @@
-getorg_version = "0.1.22"
+getorg_version = "0.1.23"
 
 def handle_org_name_or_object(github_obj, org_name_or_object):
     """

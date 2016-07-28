@@ -37,6 +37,60 @@ else:
 
 
 
+def location_dict_to_geocoord_dict(location_dict):
+    """
+    Converts a dictionary of {users : geopy location objects} to {users : [longitude, latitude]}
+    """
+
+    geocoord_dict = {}
+    for user, location in location_dict.items():
+        geocoord_dict[user] = [location.longitude, location.latitude]
+
+    return geocoord_dict
+
+def location_dict_to_lists(location_dict):
+    """
+    Converts a dictionary of {users : geopy location objects} to three lists
+    of users, longitude, and latitude. Useful for using the zip() function.
+    """
+
+    user_list = []
+    longitude_list = []
+    latitude_list = []
+
+    for user, location in location_dict.items():
+        user_list.append(user)
+        longitude_list.append(location.longitude)
+        latitude_list.append(location.latitude)
+
+    return user_list, longitude_list, latitude_list
+
+def location_dict_to_jsvar(location_dict, filename):
+
+    user_list, lon_list, lat_list = location_dict_to_lists(location_dict)
+
+    with open(filename, 'w') as f:
+        f.write('var addressPoints = ')
+        f.write(json.dumps([[user,lon,lat] for user,lon,lat in zip(user_list,lon_list,lat_list)], indent=2))
+        f.write(';')
+
+    return "Written to " + filename
+
+def merge_location_dict(location_dict_list):
+    """
+    Takes a list of location_dicts and returns a single location_dict with all the 
+    users and locations. Automatically merges duplicates. Requires unique user ids/names.
+    """
+    
+    assert type(location_dict_list) is list, "Must be passed a list of dicts"
+    merged_loc_dict = {}
+    for loc_dict in location_dict_list:
+        for user,loc in loc_dict.items():
+            merged_loc_dict[user] = loc
+    
+    return merged_loc_dict
+
+
 def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     """
     For a GitHub organization, get location for contributors to any repo in the org.
@@ -244,6 +298,10 @@ def org_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
     f.close()
 
 def map_org(github_obj, org_name_or_object):
+    """
+    Returns a map object, location_dict, and metadata_dict for a Github organization.
+
+    """
     org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object)
 
     if leaflet_enabled is False:
@@ -254,3 +312,34 @@ def map_org(github_obj, org_name_or_object):
         map_location_dict(map_obj, org_location_dict)
 
     return map_obj, org_location_dict, org_location_metadata_dict
+
+def map_orgs(github_obj,org_list):
+    """
+    Returns a map object, location_dict, and metadata_dict for a list of github organizations.
+    TODO: aggregation for metadata is just summing all the counts. Probably a smarter way to do it.
+    """
+    assert type(org_list) is list, "Must be passed a list of strings or Github organizations"
+    all_org_location_dict_list = []
+    all_org_metadata_dict = {'no_loc_count':0, 'user_loc_count':0, 
+                    'duplicate_count':0, 'error_count':0}
+    for org in org_list:
+        org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj,org)
+        all_org_location_dict_list.append(org_location_dict)
+
+        all_org_metadata_dict['no_loc_count'] += org_metadata_dict['no_loc_count']
+        all_org_metadata_dict['user_loc_count'] += org_metadata_dict['user_loc_count']
+        all_org_metadata_dict['duplicate_count'] += org_metadata_dict['duplicate_count']
+        all_org_metadata_dict['error_count'] += org_metadata_dict['error_count']
+
+    all_org_location_dict = merge_location_dict(all_org_location_dict_list)
+
+    if leaflet_enabled is False:
+        map_obj = "No map object. IPywidgets and ipyleaflet support is disabled."
+
+    else:
+        map_obj = create_map_obj()
+        map_location_dict(map_obj, all_org_location_dict)
+
+    return map_obj,all_org_location_dict,all_org_metadata_dict
+
+
