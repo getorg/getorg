@@ -1,6 +1,5 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
   - "3.2"
   - "3.3"
@@ -10,6 +9,6 @@ python:
   - "nightly" # currently points to 3.6-dev
 env: GHK=26eb89ce891a41c26a038b4658129bff29b3fac2
 # command to install dependencies
-install: "pip install geopy datetime pygithub"
+install: "pip install geopy datetime pygithub json hashlib"
 # command to run tests
 script: nosetests
