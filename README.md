@@ -3,7 +3,7 @@ Get information and analytics about GitHub organizations
 
 ## Dependencies
 ### Required
-* Getorg is built on the githubPy library for querying the Github API.
+* GithubPy library for querying the Github API.
 * Geopy (specifically Nominatim) for geolocating locations.
 ### Recommended
 * Jupyter notebook, ipywidgets, and ipyleaflets for plotting maps.
