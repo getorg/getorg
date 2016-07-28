@@ -1,6 +1,10 @@
-global getorg_version = "0.1.14"
+getorg_version = "0.1.19"
 
 def handle_org_name_or_object(github_obj, org_name_or_object):
+    """
+    Takes in either an org name or Github Organization object, and returns
+    a Github Organization object.
+    """
     import github
     if isinstance(org_name_or_object, github.Organization.Organization):
         org = org_name_or_object
@@ -12,7 +16,6 @@ def handle_org_name_or_object(github_obj, org_name_or_object):
 
     return org    
 
- def get_org_repos(github_obj,org_name_or_object)
-
- 	org_obj = handle_org_name_or_object(github_obj, org_name_or_object)
+def get_org_repos(github_obj,org_name_or_object):
+    org_obj = handle_org_name_or_object(github_obj, org_name_or_object)
 

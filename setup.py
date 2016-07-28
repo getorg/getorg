@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='getorg',
-      version='0.1.14',
+      version='0.1.20',
       description='Information and analytics about GitHub organizations',
       url='http://github.com/getorg/getorg',
       author='Stuart Geiger',
@@ -9,5 +9,5 @@ setup(name='getorg',
       license='MIT',
       packages=['getorg'],
       install_requires=[
-          'pygithub', 'ipywidgets', 'ipyleaflet', 'geopy', 'datetime'],
+          'pygithub', 'geopy', 'datetime'],
       zip_safe=False)

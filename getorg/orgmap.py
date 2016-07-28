@@ -5,6 +5,7 @@ from geopy.geocoders import Nominatim
 
 # Test to see if ipyleaflets are supported.
 global leaflet_enabled
+
 try:
     import ipywidgets
 
@@ -242,11 +243,13 @@ def org_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
     f.close()
 
 def map_org(github_obj, org_name_or_object):
-    if leaflet_enabled is False:
-        return "IPywidgets and ipyleaflet support disabled."
-
-    map_obj = create_map_obj()
-
     org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object)
-    map_location_dict(map_obj, org_location_dict)
+
+    if leaflet_enabled is False:
+        map_obj = "No map object. IPywidgets and ipyleaflet support is disabled."
+
+    else:
+        map_obj = create_map_obj()
+        map_location_dict(map_obj, org_location_dict)
+        
     return map_obj, org_location_dict, org_location_metadata_dict
