@@ -1,7 +1,11 @@
+import os
+
+k = os.environ.get('GHK')
+
 def test_map_org():
     import getorg
     from github import Github
-    gh = Github()
+    gh = Github(k)
 
     
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_org(gh,"getorg-test")
@@ -14,7 +18,7 @@ def test_map_org():
 def test_map_orgs():
     import getorg
     from github import Github
-    gh = Github()
+    gh = Github(k)
 
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_orgs(gh,['trace-ethnography', 'getorg-test', 'getorg'])
 
