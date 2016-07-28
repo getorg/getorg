@@ -4,7 +4,7 @@ THIS FILE IS DEPRECATED. FUNCTIONS ARE BEING TRANSFERRED TO SUB-MODULES
 
 
 """
-
+from __future__ import print_function
 import github
 from geopy.geocoders import Nominatim
 import ipywidgets
