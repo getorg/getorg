@@ -10,9 +10,11 @@ Get information and analytics about GitHub organizations
 
 ## Dependencies
 ### Required (installed by pip)
-* GithubPy library for querying the Github API.
-* Geopy (specifically Nominatim) for geolocating locations.
-* Datetime
+* githubPy library for querying the Github API.
+* geopy (specifically Nominatim) for geolocating locations.
+* datetime
+* hashlib
+* json
 
 ### Recommended (not installed by pip)
 * Jupyter notebook, ipywidgets, and ipyleaflets for plotting maps.
