@@ -1,17 +1,38 @@
 import github
 from getorg.core import *
 from geopy.geocoders import Nominatim
-import ipywidgets
 
 
-from ipyleaflet import (
-    Map,
-    Marker,
-    TileLayer, ImageOverlay,
-    Polyline, Polygon, Rectangle, Circle, CircleMarker,
-    GeoJSON,
-    DrawControl
-)
+# Test to see if ipyleaflets are supported.
+global leaflet_enabled
+try:
+    import ipywidgets
+
+    from ipyleaflet import (
+        Map,
+        Marker,
+        TileLayer, ImageOverlay,
+        Polyline, Polygon, Rectangle, Circle, CircleMarker,
+        GeoJSON,
+        DrawControl
+    )
+
+    map_test = Map()
+    leaflet_enabled = True
+
+except Exception as e:
+    leaflet_enabled = False
+    err = e
+
+if leaflet_enabled:
+    print("IPywidgets and ipyleaflet support enabled.")
+else:
+    print("Iywidgets and ipyleaflet support disabled. You must be in a Jupyter notebook to use this feature.")
+    print("Error raised:")
+    print(err)
+    print("Check that you have enabled ipyleaflet in Jupyter with:")
+    print("    jupyter nbextension enable --py ipyleaflet")
+
 
 
 def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
@@ -91,6 +112,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
 
 
 def create_map_obj(center = [30,5], zoom = 2):
+    """    
     import ipywidgets
 
     from ipyleaflet import (
@@ -101,10 +123,13 @@ def create_map_obj(center = [30,5], zoom = 2):
     GeoJSON,
     DrawControl
     )
+    """
 
-    m = Map(default_tiles=TileLayer(opacity=1.0), center=center, zoom=zoom, layout=ipywidgets.Layout(height="600px"))
-
-    return m
+    if leaflet_enabled is False:
+        return "IPywidgets and ipyleaflet support disabled."
+    else:
+        m = Map(default_tiles=TileLayer(opacity=1.0), center=center, zoom=zoom, layout=ipywidgets.Layout(height="600px"))
+        return m
 
 def map_location_dict(map_obj,org_location_dict):
     """
@@ -113,6 +138,9 @@ def map_location_dict(map_obj,org_location_dict):
     Must be passed a map object, then the dictionary. Returns the map object.
     
     """
+    if leaflet_enabled is False:
+        return "IPywidgets and ipyleaflet support disabled."
+
     for username, location in org_location_dict.items():
         if(location is not None):
             mark = Marker(location=[location.latitude,location.longitude])
@@ -214,6 +242,9 @@ def org_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
     f.close()
 
 def map_org(github_obj, org_name_or_object):
+    if leaflet_enabled is False:
+        return "IPywidgets and ipyleaflet support disabled."
+
     map_obj = create_map_obj()
 
     org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object)
