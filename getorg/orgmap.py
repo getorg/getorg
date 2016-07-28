@@ -251,5 +251,5 @@ def map_org(github_obj, org_name_or_object):
     else:
         map_obj = create_map_obj()
         map_location_dict(map_obj, org_location_dict)
-        
+
     return map_obj, org_location_dict, org_location_metadata_dict
