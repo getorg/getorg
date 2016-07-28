@@ -5,7 +5,7 @@ Get information and analytics about GitHub organizations
 ### Basic functionality
     pip install getorg
 ### Mapping functionality in Jupyter notebooks (assuming Jupyter is installed)
-    pip install getorg, ipywidgets, ipyleaflets
+    pip install getorg ipywidgets ipyleaflet
     jupyter nbextension enable --py ipyleaflet
 
 ## Dependencies
