@@ -127,9 +127,13 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     # Instantiate geolocator api
     geolocator = Nominatim()
 
+    if debug == 1:
+        print("Querying organization", org.name)
+
     # For each repo in the organization
     for repo in org.get_repos():
-        #print(repo.name)
+        if debug == 2:
+            print("Querying repository", repo.name)
         contributor_count = 0
         # For each contributor in the repo        
         for contributor in repo.get_contributors():
@@ -302,12 +306,12 @@ def org_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
         f.write("]}")
     f.close()
 
-def map_org(github_obj, org_name_or_object):
+def map_org(github_obj, org_name_or_object, debug = 1):
     """
     Returns a map object, location_dict, and metadata_dict for a Github organization.
 
     """
-    org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object)
+    org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object, debug)
 
     if leaflet_enabled is False:
         map_obj = "No map object. IPywidgets and ipyleaflet support is disabled."
@@ -318,7 +322,7 @@ def map_org(github_obj, org_name_or_object):
 
     return map_obj, org_location_dict, org_location_metadata_dict
 
-def map_orgs(github_obj,org_list_or_object):
+def map_orgs(github_obj,org_list_or_object, debug = 1):
     """
     Returns a map object, location_dict, and metadata_dict for a github organization 
     (name or object) or a list of github organizations (names or objects).
@@ -326,7 +330,7 @@ def map_orgs(github_obj,org_list_or_object):
     """
 
     if type(org_list_or_object) is not list:
-        return map_org(github_obj, org_list_or_object)
+        return map_org(github_obj, org_list_or_object, debug)
 
     elif type(org_list_or_object) is not list:
         assert "Must be passed a list of strings or Github organizations"
@@ -337,7 +341,7 @@ def map_orgs(github_obj,org_list_or_object):
         all_org_metadata_dict = {'no_loc_count':0, 'user_loc_count':0, 
                         'duplicate_count':0, 'error_count':0}
         for org in org_list:
-            org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj,org)
+            org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj, org, debug)
             all_org_location_dict_list.append(org_location_dict)
 
             all_org_metadata_dict['no_loc_count'] += org_metadata_dict['no_loc_count']
