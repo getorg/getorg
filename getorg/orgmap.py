@@ -313,33 +313,42 @@ def map_org(github_obj, org_name_or_object):
 
     return map_obj, org_location_dict, org_location_metadata_dict
 
-def map_orgs(github_obj,org_list):
+def map_orgs(github_obj,org_list_or_object):
     """
-    Returns a map object, location_dict, and metadata_dict for a list of github organizations.
+    Returns a map object, location_dict, and metadata_dict for a github organization 
+    (name or object) or a list of github organizations (names or objects).
     TODO: aggregation for metadata is just summing all the counts. Probably a smarter way to do it.
     """
-    assert type(org_list) is list, "Must be passed a list of strings or Github organizations"
-    all_org_location_dict_list = []
-    all_org_metadata_dict = {'no_loc_count':0, 'user_loc_count':0, 
-                    'duplicate_count':0, 'error_count':0}
-    for org in org_list:
-        org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj,org)
-        all_org_location_dict_list.append(org_location_dict)
 
-        all_org_metadata_dict['no_loc_count'] += org_metadata_dict['no_loc_count']
-        all_org_metadata_dict['user_loc_count'] += org_metadata_dict['user_loc_count']
-        all_org_metadata_dict['duplicate_count'] += org_metadata_dict['duplicate_count']
-        all_org_metadata_dict['error_count'] += org_metadata_dict['error_count']
+    if type(org_list_or_object) is not list:
+        return map_org(org_list_or_object)
 
-    all_org_location_dict = merge_location_dict(all_org_location_dict_list)
-
-    if leaflet_enabled is False:
-        map_obj = "No map object. IPywidgets and ipyleaflet support is disabled."
+    elif type(org_list_or_object) is not list:
+        assert "Must be passed a list of strings or Github organizations"
 
     else:
-        map_obj = create_map_obj()
-        map_location_dict(map_obj, all_org_location_dict)
+        org_list = org_list_or_object
+        all_org_location_dict_list = []
+        all_org_metadata_dict = {'no_loc_count':0, 'user_loc_count':0, 
+                        'duplicate_count':0, 'error_count':0}
+        for org in org_list:
+            org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj,org)
+            all_org_location_dict_list.append(org_location_dict)
 
-    return map_obj,all_org_location_dict,all_org_metadata_dict
+            all_org_metadata_dict['no_loc_count'] += org_metadata_dict['no_loc_count']
+            all_org_metadata_dict['user_loc_count'] += org_metadata_dict['user_loc_count']
+            all_org_metadata_dict['duplicate_count'] += org_metadata_dict['duplicate_count']
+            all_org_metadata_dict['error_count'] += org_metadata_dict['error_count']
+
+        all_org_location_dict = merge_location_dict(all_org_location_dict_list)
+
+        if leaflet_enabled is False:
+            map_obj = "No map object. IPywidgets and ipyleaflet support is disabled."
+
+        else:
+            map_obj = create_map_obj()
+            map_location_dict(map_obj, all_org_location_dict)
+
+        return map_obj,all_org_location_dict,all_org_metadata_dict
 
 
