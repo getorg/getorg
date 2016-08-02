@@ -66,6 +66,7 @@ def location_dict_to_lists(location_dict):
     return user_list, longitude_list, latitude_list
 
 def location_dict_to_jsvar(location_dict, filename):
+    import json
 
     user_list, lon_list, lat_list = location_dict_to_lists(location_dict)
 
@@ -321,7 +322,7 @@ def map_orgs(github_obj,org_list_or_object):
     """
 
     if type(org_list_or_object) is not list:
-        return map_org(org_list_or_object)
+        return map_org(github_obj, org_list_or_object)
 
     elif type(org_list_or_object) is not list:
         assert "Must be passed a list of strings or Github organizations"
