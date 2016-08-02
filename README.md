@@ -1,5 +1,5 @@
 # getorg
-Get information and analytics about GitHub organizations
+Get information and analytics about Github organizations. Extends the pygithub library for querying the Github API. Built for python 3 (python 2.6 does not work, python 2.7 currently works, but is not guaranteed to be supported in the future).
 
 ## Installation
 ### Basic functionality
