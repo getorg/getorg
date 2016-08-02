@@ -2,6 +2,7 @@ from __future__ import print_function
 import github
 from getorg.core import *
 from geopy.geocoders import Nominatim
+from retrying import retry
 
 
 # Test to see if ipyleaflets are supported.
@@ -98,7 +99,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     
     Returns a dictionary of {username URLS : geopy Locations}, then a dictionary of various metadata.
 
-    Debug levels: 0 is quiet, 1 (default) is one character per contributor, 0 is full locations & errors
+    Debug levels: 0 is quiet, 1 (default) is one character per contributor, 2 is full locations & errors
     
     """
     
@@ -107,6 +108,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     # org = handle_org_name_or_object(github, org_name_or_object)
 
     import github
+
     if isinstance(org_name_or_object, github.Organization.Organization):
         org = org_name_or_object
     elif isinstance(org_name_or_object, str):
@@ -114,8 +116,6 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     else:
         error_str = "Must pass a github object or string. Passed a(n) " + str(type(org_name_or_object))
         assert False, error_str
-
-
 
 
     # Set up empty dictionaries and metadata variables
@@ -127,23 +127,23 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     # Instantiate geolocator api
     geolocator = Nominatim()
 
-    if debug == 1:
-        print("Querying organization", org.name)
+    if debug >= 1:
+        print("\nQuerying organization", org.name)
 
     # For each repo in the organization
     for repo in org.get_repos():
-        if debug == 2:
-            print("Querying repository", repo.name)
+        if debug >= 2:
+            print("\nQuerying repository", repo.name)
         contributor_count = 0
         # For each contributor in the repo        
         for contributor in repo.get_contributors():
             contributor_count += 1
-            if debug == 1:
+            if debug >= 1:
                 if contributor_count % 50 == 0:
                     print('.')
                 else:
                     print('.', end="")
-            elif debug == 2:
+            if debug >= 3:
                 print(contributor.location)
             # If the contributor_locs dictionary doesn't have an entry for this user
             if contributor_locs.get(contributor.url) is None:
@@ -156,7 +156,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
                         metadata_dict['no_loc_count'] += 1
                     else:
                         # Get coordinates for location string from Nominatim API
-                        location=geolocator.geocode(contributor.location)
+                        location=get_geolocation(geolocator, contributor.location)
 
                         #print(contributor.location, " | ", location)
                         
@@ -174,6 +174,17 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
                 metadata_dict['duplicate_count'] += 1
                 
     return contributor_locs,metadata_dict
+
+@retry(stop_max_attempt_number=3)
+def get_geolocation(geocode_obj, loc):
+    """
+    Wrapper function around geopy's geocode function. Used for retry, which will
+    run it at most 3 times to get a non-error return value. It will not retry if
+    it successfully returns a value.
+    """
+
+    loc = geocode_obj.geocode(loc)
+    return loc
 
 
 def create_map_obj(center = [30,5], zoom = 2):
