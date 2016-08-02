@@ -130,11 +130,15 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     # For each repo in the organization
     for repo in org.get_repos():
         #print(repo.name)
-        
+        contributor_count = 0
         # For each contributor in the repo        
         for contributor in repo.get_contributors():
+            contributor_count += 1
             if debug == 1:
-                print('.', end="")
+                if contributor_count % 50 == 0:
+                    print('.')
+                else:
+                    print('.', end="")
             elif debug == 2:
                 print(contributor.location)
             # If the contributor_locs dictionary doesn't have an entry for this user
