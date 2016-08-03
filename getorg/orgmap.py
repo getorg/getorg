@@ -102,8 +102,11 @@ def merge_location_dict(location_dict_list):
     
     return merged_loc_dict
 
+def user_url_to_username(user_url):
+    return
 
-def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
+
+def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclude_usernames = []):
     """
     For a GitHub organization, get location for contributors to any repo in the org.
     
@@ -143,8 +146,12 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     # Instantiate geolocator api
     geolocator = Nominatim()
 
+
+    # Convert excluded usernames to all-lowercase
+    exclude_usernames = [username.lower() for username in exclude_usernames]
+
     if debug >= 1:
-        print("\nQuerying organization", org.name)
+        print("\nQuerying organization", org, org.name)
 
     # For each repo in the organization
     for repo in org.get_repos():
@@ -153,41 +160,52 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
         contributor_count = 0
         # For each contributor in the repo        
         for contributor in repo.get_contributors():
-            contributor_count += 1
-            if debug >= 1:
-                if contributor_count % 50 == 0:
-                    print('.')
-                else:
-                    print('.', end="")
-            if debug >= 3:
-                print(contributor.location)
-            # If the contributor_locs dictionary doesn't have an entry for this user
-            if contributor_locs.get(contributor.url) is None:
-                
-                # Try-Except block to handle API errors
-                try:
-                    # If the contributor has no location in profile
-                    if(contributor.location is None):
-                        #print("No Location")
-                        metadata_dict['no_loc_count'] += 1
-                    else:
-                        # Get coordinates for location string from Nominatim API
-                        location=get_geolocation(geolocator, contributor.location)
 
-                        #print(contributor.location, " | ", location)
-                        
-                        # Add a new entry to the dictionary. 
-                        # Value is user's URL, key is geocoded location object
-                        contributor_locs[contributor.url] = location
-                        metadata_dict['user_loc_count'] += 1
-                except Exception as e:
-                    if debug == 1:
-                        print('!', end="")
-                    elif debug == 2:
-                        print("ERROR:", e)
-                    metadata_dict['error_count'] += 1
+            # Convert contributor url to all-lowercase username 
+            contributor_username = contributor.url.rsplit('/', 1)[-1].lower()
+
+            if contributor_username in exclude_usernames:
+                if debug >= 3:
+                    print("Excluded username", contributor_username)
             else:
-                metadata_dict['duplicate_count'] += 1
+                contributor_count += 1
+
+                # Print status
+                if debug >= 1:
+                    if contributor_count % 50 == 0:
+                        print('.')
+                    else:
+                        print('.', end="")
+                if debug >= 3:
+                    print(contributor_username, contributor.location)
+
+                if contributor_locs.get(contributor_username) is None:
+                # If the contributor_locs dictionary doesn't have an entry for this user
+                    
+                    # Try-Except block to handle API errors
+                    try:
+                        # If the contributor has no location in profile
+                        if(contributor.location is None):
+                            #print("No Location")
+                            metadata_dict['no_loc_count'] += 1
+                        else:
+                            # Get coordinates for location string from Nominatim API
+                            location=get_geolocation(geolocator, contributor.location)
+
+                            #print(contributor.location, " | ", location)
+                            
+                            # Add a new entry to the dictionary. 
+                            # Value is user's URL, key is geocoded location object
+                            contributor_locs[contributor_username] = location
+                            metadata_dict['user_loc_count'] += 1
+                    except Exception as e:
+                        if debug == 1:
+                            print('!', end="")
+                        elif debug == 2:
+                            print("ERROR:", e)
+                        metadata_dict['error_count'] += 1
+                else:
+                    metadata_dict['duplicate_count'] += 1
                 
     return contributor_locs,metadata_dict
 
@@ -239,7 +257,7 @@ def map_location_dict(map_obj,org_location_dict):
     return map_obj
 
 
-def org_dict_to_csv(org_location_dict, filename, hashed_usernames = True):
+def location_dict_to_csv(org_location_dict, filename, hashed_usernames = True):
     """
     Outputs a dict of users : locations to a CSV file. 
     
@@ -268,8 +286,12 @@ def org_dict_to_csv(org_location_dict, filename, hashed_usernames = True):
                            + str(location.latitude) + "\n"
                     f.write(line)
         f.close()
+        return "Written to " + filename
+
     except Exception as e:
         return e
+
+
 
 
 def csv_to_js_var(input_file, output_file):
@@ -290,7 +312,7 @@ def csv_to_js_var(input_file, output_file):
         zip(dct['user'].values(),dct[' longitude'].values(), dct[' latitude'].values())], indent=2)+';')
 
 
-def org_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
+def location_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
     """
     CURRENTLY BROKEN!
     Outputs a dict of users : locations to a CSV file. 
@@ -334,12 +356,12 @@ def org_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
         f.write("]}")
     f.close()
 
-def map_org(github_obj, org_name_or_object, debug = 1):
+def map_org(github_obj, org_name_or_object, debug = 1, exclude_usernames = []):
     """
     Returns a map object, location_dict, and metadata_dict for a Github organization.
 
     """
-    org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object, debug)
+    org_location_dict, org_location_metadata_dict = get_org_contributor_locations(github_obj, org_name_or_object, debug, exclude_usernames)
 
     if leaflet_enabled is False:
         map_obj = "No map object. IPywidgets and ipyleaflet support is disabled."
@@ -350,7 +372,7 @@ def map_org(github_obj, org_name_or_object, debug = 1):
 
     return map_obj, org_location_dict, org_location_metadata_dict
 
-def map_orgs(github_obj,org_list_or_object, debug = 1):
+def map_orgs(github_obj,org_list_or_object, debug = 1, exclude_usernames = []):
     """
     Returns a map object, location_dict, and metadata_dict for a github organization 
     (name or object) or a list of github organizations (names or objects).
@@ -359,6 +381,7 @@ def map_orgs(github_obj,org_list_or_object, debug = 1):
         github_obj: pygithub Github object, created with Github()
         org_list_or_object: list of Github org objects, list of strings, Github org object, or string.
         debug: level of debug/verbosity for printing status updates (see below)
+        exclude_usernames: list of strings, support is currently broken
     Returns:
         set of ipyleaflet map objects, dictionary of {ids:locations}, metadata dictionary for query
     Debug levels: 
@@ -371,7 +394,7 @@ def map_orgs(github_obj,org_list_or_object, debug = 1):
     """
 
     if type(org_list_or_object) is not list:
-        return map_org(github_obj, org_list_or_object, debug)
+        return map_org(github_obj, org_list_or_object, debug, exclude_usernames)
 
     elif type(org_list_or_object) is not list:
         assert "Must be passed a list of strings or Github organizations"
@@ -382,7 +405,7 @@ def map_orgs(github_obj,org_list_or_object, debug = 1):
         all_org_metadata_dict = {'no_loc_count':0, 'user_loc_count':0, 
                         'duplicate_count':0, 'error_count':0}
         for org in org_list:
-            org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj, org, debug)
+            org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj, org, debug, exclude_usernames)
             all_org_location_dict_list.append(org_location_dict)
 
             all_org_metadata_dict['no_loc_count'] += org_metadata_dict['no_loc_count']
