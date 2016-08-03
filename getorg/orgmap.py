@@ -301,7 +301,6 @@ def csv_to_js_var(input_file, output_file):
     CSV file must be in the format of: point info, longitude, latitude
 
     """
-    import pandas as pd
     import json
 
     df = pd.read_csv(input_file)
