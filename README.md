@@ -31,7 +31,7 @@ Get information and analytics about Github organizations. Extends the pygithub l
     gh = Github(login_or_token=ghlogin.gh_key)
     
 ### If you're in a Jupyter notebook with IPyleaflet support
-    In [4]: org_leaflet_map, org_location_dict, org_metadata_dict = getorg.orgmap.map_org(gh, "getorg")
+    In [4]: org_leaflet_map, org_location_dict, org_metadata_dict = getorg.orgmap.map_orgs(gh, "getorg")
 
     In [5]: org_leaflet_map
     Out[5]: [a map should be displayed]
@@ -47,7 +47,7 @@ Get information and analytics about Github organizations. Extends the pygithub l
      'user_loc_count': 1}
     
 ### Or if you are not in a Jupyter notebook
-    In [4]: m = getorg.orgmap.map_org(gh,"getorg")
+    In [4]: m = getorg.orgmap.map_orgs(gh,"getorg")
     
     In [5]: m
     Out[5]: 
