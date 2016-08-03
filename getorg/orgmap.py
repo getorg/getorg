@@ -60,20 +60,30 @@ def location_dict_to_lists(location_dict):
     latitude_list = []
 
     for user, location in location_dict.items():
-        user_list.append(user)
-        longitude_list.append(location.longitude)
-        latitude_list.append(location.latitude)
+        if location is not None:
+            user_list.append(user)
+            longitude_list.append(location.longitude)
+            latitude_list.append(location.latitude)
 
     return user_list, longitude_list, latitude_list
 
 def location_dict_to_jsvar(location_dict, filename):
+    """
+    Writes a dictionary of {users : geopy location objects} to a Javascript file containing
+    a single variable, a list of [user, latitude, longitude]. For use with the clustered
+    leaflets html page in /examples/org_map/.
+    """
+
     import json
 
     user_list, lon_list, lat_list = location_dict_to_lists(location_dict)
+    
+
+    user_lat_lon = [[lat,lon,user] for lat,lon,user in zip(user_list,lat_list,lon_list)]
 
     with open(filename, 'w') as f:
         f.write('var addressPoints = ')
-        f.write(json.dumps([[user,lon,lat] for user,lon,lat in zip(user_list,lon_list,lat_list)], indent=2))
+        f.write(json.dumps(user_lat_lon, indent=2))
         f.write(';')
 
     return "Written to " + filename
@@ -99,7 +109,13 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1):
     
     Returns a dictionary of {username URLS : geopy Locations}, then a dictionary of various metadata.
 
-    Debug levels: 0 is quiet, 1 (default) is one character per contributor, 2 is full locations & errors
+    TODO: Break this into smaller functions. There are a lot of these.
+
+    Debug levels: 
+    0: quiet
+    1: (default) is one character per contributor, organization names
+    2: one character per contributor, organization and repository names
+    3: full locations for all contributors, organization and repository names
     
     """
     
@@ -189,16 +205,8 @@ def get_geolocation(geocode_obj, loc):
 
 def create_map_obj(center = [30,5], zoom = 2):
     """    
-    import ipywidgets
-
-    from ipyleaflet import (
-    Map,
-    Marker,
-    TileLayer, ImageOverlay,
-    Polyline, Polygon, Rectangle, Circle, CircleMarker,
-    GeoJSON,
-    DrawControl
-    )
+    Creates a new ipyleaflet map object that defaults to a view of the entire world.
+    Can specify center 
     """
 
     if leaflet_enabled is False:
@@ -210,8 +218,12 @@ def create_map_obj(center = [30,5], zoom = 2):
 def map_location_dict(map_obj,org_location_dict):
     """
     Maps the locations in a dictionary of {ids : geoPy Locations}. 
-    
-    Must be passed a map object, then the dictionary. Returns the map object.
+
+    Args:
+        map_obj: An ipyleaflet map object, can be created with orgmap.create_map_obj
+        org_location_dict: Dictionary of {ids : geopy locations}, created by get_org_contributor_locations
+    Returns:
+        ipyleaflet map object
     
     """
     if leaflet_enabled is False:
@@ -231,7 +243,12 @@ def org_dict_to_csv(org_location_dict, filename, hashed_usernames = True):
     """
     Outputs a dict of users : locations to a CSV file. 
     
-    Requires org_location_dict and filename, optional hashed_usernames parameter.
+    Args:
+        org_location_dict: dictionary of {ids : geopy locations}, created by get_org_contributor_locations
+        filename: string of the filename to write to
+        hashed_usernames: optional parameter that returns sha-1 hash of username for privacy reasons
+    Returns: 
+        nothing if successful, error if exception caught
     
     Uses hashes of usernames by default for privacy reasons. Think carefully 
     about publishing location data about uniquely identifiable users. Hashing
@@ -337,6 +354,19 @@ def map_orgs(github_obj,org_list_or_object, debug = 1):
     """
     Returns a map object, location_dict, and metadata_dict for a github organization 
     (name or object) or a list of github organizations (names or objects).
+
+    Args:
+        github_obj: pygithub Github object, created with Github()
+        org_list_or_object: list of Github org objects, list of strings, Github org object, or string.
+        debug: level of debug/verbosity for printing status updates (see below)
+    Returns:
+        set of ipyleaflet map objects, dictionary of {ids:locations}, metadata dictionary for query
+    Debug levels: 
+        0: quiet
+        1: (default) is one character per contributor, organization names
+        2: one character per contributor, organization and repository names
+        3: full locations for all contributors, organization and repository names
+
     TODO: aggregation for metadata is just summing all the counts. Probably a smarter way to do it.
     """
 

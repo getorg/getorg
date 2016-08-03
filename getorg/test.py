@@ -50,3 +50,12 @@ def test_map_orgs_single_org_with_debug_2():
     assert round(loc_dict['https://api.github.com/users/staeiou'].longitude,2) == -122.27
     assert len(loc_dict) == 2
     assert metadata_dict == {'error_count': 0, 'user_loc_count': 2, 'no_loc_count': 0, 'duplicate_count': 0}
+
+def test_map_output_js():
+    import getorg
+    from github import Github
+    gh = Github(k)
+
+    map_obj, loc_dict, metadata_dict = getorg.orgmap.map_orgs(gh,'getorg-test', debug=2)
+
+    getorg.orgmap.location_dict_to_jsvar(loc_dict,"test.js")    
