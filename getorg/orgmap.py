@@ -151,7 +151,10 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
     exclude_usernames = [username.lower() for username in exclude_usernames]
 
     if debug >= 1:
-        print("\nQuerying organization", org.name)
+        if org.name is None:
+            print("\nQuerying organization", org.url)
+        else:
+            print("\nQuerying organization", org.name)
 
     # For each repo in the organization
     for repo in org.get_repos():
