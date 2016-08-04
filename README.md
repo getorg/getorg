@@ -5,7 +5,7 @@ Get information and analytics about Github organizations. Extends the pygithub l
 ### Basic functionality
     pip install getorg
 ### Mapping functionality in Jupyter notebooks (assuming Jupyter is installed)
-    pip install getorg ipywidgets ipyleaflet
+    pip install getorg ipyleaflet
     jupyter nbextension enable --py ipyleaflet
 
 ## Dependencies
@@ -17,8 +17,8 @@ Get information and analytics about Github organizations. Extends the pygithub l
 ### Recommended (not installed by pip)
 * Jupyter notebook, ipywidgets, and ipyleaflets for plotting maps.
 
-
 ## Usage
+(See also the Jupyter notebooks in the examples folder)
 ### Initialization
     from github import Github
     import getorg
@@ -60,4 +60,4 @@ Get information and analytics about Github organizations. Extends the pygithub l
 
 
 ## Credits
-Getorg is a package based on work originally done in [some Jupyter notebooks](https://github.com/staeiou/github-analytics) with [Carreau](https://github.com/Carreau) and [namisaghaei](https://github.com/namisaghaei).
+Getorg is a package based on work originally done in [some Jupyter notebooks](https://github.com/staeiou/github-analytics) with [JamiesHQ](https://github.com/JamiesHQ), [Carreau](https://github.com/Carreau) and [namisaghaei](https://github.com/namisaghaei).
