@@ -151,7 +151,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
     exclude_usernames = [username.lower() for username in exclude_usernames]
 
     if debug >= 1:
-        print("\nQuerying organization", org, org.name)
+        print("\nQuerying organization", org.name)
 
     # For each repo in the organization
     for repo in org.get_repos():
@@ -164,6 +164,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
             # Convert contributor url to all-lowercase username 
             contributor_username = contributor.url.rsplit('/', 1)[-1].lower()
 
+            # Handle excluded usernames
             if contributor_username in exclude_usernames:
                 if debug >= 3:
                     print("Excluded username", contributor_username)

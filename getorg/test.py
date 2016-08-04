@@ -1,13 +1,13 @@
 import os
-
+import getorg
+from github import Github
 k = os.environ.get('GHK')
 
-def test_map_org():
-    import getorg
-    from github import Github
-    gh = Github(k)
+gh = Github(k)
 
-    
+
+def test_map_org():
+   
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_org(gh,"getorg-test")
 
     assert loc_dict['getorg-testacct'].longitude == 0.0
@@ -16,9 +16,6 @@ def test_map_org():
 
 
 def test_map_orgs_single_org():
-    import getorg
-    from github import Github
-    gh = Github(k)
 
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_orgs(gh,'getorg-test')
 
@@ -28,9 +25,6 @@ def test_map_orgs_single_org():
     assert metadata_dict == {'error_count': 0, 'user_loc_count': 2, 'no_loc_count': 0, 'duplicate_count': 0}
 
 def test_map_orgs_multiple_orgs():
-    import getorg
-    from github import Github
-    gh = Github(k)
 
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_orgs(gh,['trace-ethnography', 'getorg-test', 'getorg'])
 
@@ -42,9 +36,6 @@ def test_map_orgs_multiple_orgs():
     #assert metadata_dict == {'error_count': 0, 'user_loc_count': 5, 'no_loc_count': 1, 'duplicate_count': 1}
 
 def test_map_orgs_single_org_with_debug_2():
-    import getorg
-    from github import Github
-    gh = Github(k)
 
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_orgs(gh,'getorg-test', debug=2)
 
@@ -54,21 +45,21 @@ def test_map_orgs_single_org_with_debug_2():
     assert metadata_dict == {'error_count': 0, 'user_loc_count': 2, 'no_loc_count': 0, 'duplicate_count': 0}
 
 def test_map_output_js():
-    import getorg
-    from github import Github
-    gh = Github(k)
 
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_orgs(gh,'getorg-test', debug=2)
 
     getorg.orgmap.location_dict_to_jsvar(loc_dict,"test.js")    
 
 def test_map_orgs_with_excluded_orgs():
-    import getorg
-    from github import Github
-    gh = Github(k)
 
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_orgs(gh,['trace-ethnography', 'getorg-test'], exclude_usernames = ["staeiou"])
 
     assert loc_dict['getorg-testacct'].longitude == 0.0
     assert len(loc_dict) == 1
     assert metadata_dict == {'error_count': 0, 'user_loc_count': 1, 'no_loc_count': 1, 'duplicate_count': 0}
+"""
+def test_org_events():
+
+    issues_list, issues_count = getorg.orgevents.get_org_open_issues(gh, "getorg-test", days_open=0, comments=5, debug=0)
+    assert issues_count == {}
+"""

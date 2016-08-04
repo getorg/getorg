@@ -1,4 +1,4 @@
-getorg_version = "0.2.6"
+getorg_version = "0.2.7"
 
 def handle_org_name_or_object(github_obj, org_name_or_object):
     """
@@ -19,3 +19,16 @@ def handle_org_name_or_object(github_obj, org_name_or_object):
 def get_org_repos(github_obj,org_name_or_object):
     org_obj = handle_org_name_or_object(github_obj, org_name_or_object)
 
+def api_to_web_url(url):
+    web_url = url.replace("https://api.", "https://www.")
+
+    if web_url.find("/users/") > 0:
+        web_url = web_url.replace("/users", "")
+
+    if web_url.find("/repos/") > 0:
+        web_url = web_url.replace("/repos", "")
+
+    if web_url.find("/commits/") > 0:
+        web_url = web_url.replace("/commits", "/commit/")
+
+    return web_url
