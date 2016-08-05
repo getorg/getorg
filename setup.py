@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='getorg',
-      version='0.2.8',
+      version='0.2.9',
       description='Information and analytics about GitHub organizations',
       url='http://github.com/getorg/getorg',
       author='Stuart Geiger',
