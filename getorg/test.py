@@ -57,9 +57,8 @@ def test_map_orgs_with_excluded_orgs():
     assert loc_dict['getorg-testacct'].longitude == 0.0
     assert len(loc_dict) == 1
     assert metadata_dict == {'error_count': 0, 'user_loc_count': 1, 'no_loc_count': 1, 'duplicate_count': 0}
-"""
+
 def test_org_events():
 
     issues_list, issues_count = getorg.orgevents.get_org_open_issues(gh, "getorg-test", days_open=0, comments=5, debug=0)
-    assert issues_count == {}
-"""
+    assert issues_count == {'test': 1}

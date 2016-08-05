@@ -67,17 +67,29 @@ def location_dict_to_lists(location_dict):
 
     return user_list, longitude_list, latitude_list
 
-def location_dict_to_jsvar(location_dict, filename):
+def location_dict_to_jsvar(location_dict, filename, hashed_usernames = True):
     """
     Writes a dictionary of {users : geopy location objects} to a Javascript file containing
     a single variable, a list of [user, latitude, longitude]. For use with the clustered
     leaflets html page in /examples/org_map/.
-    """
 
+    Parameters:
+         * location_dict: dictionary of {users : geopy location objects}
+         * filename: string of filename to write to
+         * hashed_usernames: replace usernames with sha1 hashes for privacy
+    """
+    import hashlib
     import json
 
     user_list, lon_list, lat_list = location_dict_to_lists(location_dict)
-    
+
+    if hashed_usernames:
+        user_list_output = []
+
+        for user in user_list:
+            user_output = hashlib.sha1(user.encode('utf-8')).hexdigest()
+            user_list_output.append(user_output) 
+        user_list = user_list_output
 
     user_lat_lon = [[lat,lon,user] for lat,lon,user in zip(user_list,lat_list,lon_list)]
 
