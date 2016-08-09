@@ -73,10 +73,12 @@ def location_dict_to_jsvar(location_dict, filename, hashed_usernames = True):
     a single variable, a list of [user, latitude, longitude]. For use with the clustered
     leaflets html page in /examples/org_map/.
 
-    Parameters:
-         * location_dict: dictionary of {users : geopy location objects}
-         * filename: string of filename to write to
-         * hashed_usernames: replace usernames with sha1 hashes for privacy
+    - **parameters** and **return types**::
+
+         :location_dict: dictionary of {users : geopy location objects}
+         :filename: string of filename to write to
+         :hashed_usernames: replace usernames with sha1 hashes for privacy
+         :returns: success/failure message
     """
     import hashlib
     import json
@@ -113,24 +115,39 @@ def merge_location_dict(location_dict_list):
             merged_loc_dict[user] = loc
     
     return merged_loc_dict
-
+"""
 def user_url_to_username(user_url):
     return
-
+"""
 
 def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclude_usernames = []):
     """
-    For a GitHub organization, get location for contributors to any repo in the org.
-    
-    Returns a dictionary of {username URLS : geopy Locations}, then a dictionary of various metadata.
+    For a GitHub organization, get location for contributors to any repo in the org. 
 
     TODO: Break this into smaller functions. There are a lot of these.
 
-    Debug levels: 
-    0: quiet
-    1: (default) is one character per contributor, organization names
-    2: one character per contributor, organization and repository names
-    3: full locations for all contributors, organization and repository names
+    Parameters
+    ----------
+    github_obj : Pygithub Github() object
+    org_name_org_object : string or Github org object
+    exclude_usernames : list of strings, optional
+        usernames to not include in the returned list
+    debug : int, optional
+    
+    Returns
+    ----------
+    location_dict : dict
+        dictionary of {username URLS : geopy Locations}
+    metadata_dict : dict
+        dictionary of metadata about the org and the query
+
+    Notes
+    ----------
+    Debug levels:
+        .. 0 : quiet
+        .. 1 : (default) is one character per contributor, organization names
+        .. 2 : one character per contributor, organization and repository names
+        .. 3 : full locations for all contributors, organization and repository names
     
     """
     
@@ -253,11 +270,11 @@ def map_location_dict(map_obj,org_location_dict):
     """
     Maps the locations in a dictionary of {ids : geoPy Locations}. 
 
-    Args:
-        map_obj: An ipyleaflet map object, can be created with orgmap.create_map_obj
-        org_location_dict: Dictionary of {ids : geopy locations}, created by get_org_contributor_locations
-    Returns:
-        ipyleaflet map object
+    - **parameters** and **return types**::
+
+        :map_obj: An ipyleaflet map object, can be created with orgmap.create_map_obj
+        :org_location_dict: Dictionary of {ids : geopy locations}, created by get_org_contributor_locations
+        :returns: ipyleaflet map object
     
     """
     if leaflet_enabled is False:
@@ -275,14 +292,14 @@ def map_location_dict(map_obj,org_location_dict):
 
 def location_dict_to_csv(org_location_dict, filename, hashed_usernames = True):
     """
-    Outputs a dict of users : locations to a CSV file. 
+    Outputs a dict of { user : geopy location } to a CSV file. 
     
-    Args:
-        org_location_dict: dictionary of {ids : geopy locations}, created by get_org_contributor_locations
-        filename: string of the filename to write to
-        hashed_usernames: optional parameter that returns sha-1 hash of username for privacy reasons
-    Returns: 
-        nothing if successful, error if exception caught
+    - **parameters** and **return types**::
+
+        :org_location_dict: dictionary of {ids : geopy locations}, created by get_org_contributor_locations
+        :filename: string of the filename to write to
+        :hashed_usernames: optional parameter that returns sha-1 hash of username for privacy reasons
+        :return: nothing if successful, error if exception caught
     
     Uses hashes of usernames by default for privacy reasons. Think carefully 
     about publishing location data about uniquely identifiable users. Hashing
@@ -392,18 +409,20 @@ def map_orgs(github_obj,org_list_or_object, debug = 1, exclude_usernames = []):
     Returns a map object, location_dict, and metadata_dict for a github organization 
     (name or object) or a list of github organizations (names or objects).
 
-    Args:
-        github_obj: pygithub Github object, created with Github()
-        org_list_or_object: list of Github org objects, list of strings, Github org object, or string.
-        debug: level of debug/verbosity for printing status updates (see below)
-        exclude_usernames: list of strings, support is currently broken
-    Returns:
-        set of ipyleaflet map objects, dictionary of {ids:locations}, metadata dictionary for query
-    Debug levels: 
-        0: quiet
-        1: (default) is one character per contributor, organization names
-        2: one character per contributor, organization and repository names
-        3: full locations for all contributors, organization and repository names
+    - **parameters** and **return types**::
+
+        :github_obj: pygithub Github object, created with Github()
+        :org_list_or_object: list of Github org objects, list of strings, Github org object, or string.
+        :debug: level of debug/verbosity for printing status updates (see below)
+        :exclude_usernames: list of strings, support is currently broken
+        :returns: set of ipyleaflet map objects, dictionary of {ids:locations}, metadata dictionary for query
+
+    - **debug levels**:: 
+
+        :0: quiet
+        :1: (default) is one character per contributor, organization names
+        :2: one character per contributor, organization and repository names
+        :3: full locations for all contributors, organization and repository names
 
     TODO: aggregation for metadata is just summing all the counts. Probably a smarter way to do it.
     """
