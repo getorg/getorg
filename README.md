@@ -45,19 +45,19 @@ Get information and analytics about Github organizations. Extends the pygithub l
      'error_count': 0,
      'no_loc_count': 0,
      'user_loc_count': 1}
+     
+    In [8]: getorg.orgmap.output_html_cluster_map(org_location_dict,"cluster_map")
+    Out[8]: "Written map to cluster_map/map.html"
     
 ### Or if you are not in a Jupyter notebook
-    In [4]: m = getorg.orgmap.map_orgs(gh,"getorg")
+    In [4]: map, org_location_dict, org_metadata_dict = getorg.orgmap.map_orgs(gh,"getorg")
     
-    In [5]: m
+    In [5]: org_location_dict
     Out[5]: 
-    ('No map object. IPywidgets and ipyleaflet support is disabled.',
-     {'https://api.github.com/users/staeiou': Location(Berkeley, Alameda County, California, United States of America, (37.8708393, -122.2728638, 0.0))},
-     {'duplicate_count': 0,
-      'error_count': 0,
-      'no_loc_count': 0,
-      'user_loc_count': 1})
-
+    {'https://api.github.com/users/staeiou': Location(Berkeley, Alameda County, California, United States of America, (37.8708393, -122.2728638, 0.0))}
+    
+    In [6]: getorg.orgmap.output_html_cluster_map(org_location_dict,"cluster_map")
+    Out[6]: "Written map to cluster_map/map.html"
 
 ## Credits
 Getorg is a package based on work originally done in [some Jupyter notebooks](https://github.com/staeiou/github-analytics) with [JamiesHQ](https://github.com/JamiesHQ), [Carreau](https://github.com/Carreau) and [namisaghaei](https://github.com/namisaghaei).
