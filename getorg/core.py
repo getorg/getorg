@@ -14,7 +14,7 @@ def handle_org_name_or_object(github_obj, org_name_or_object):
         error_str = "Must pass a github object or string. Passed a(n) " + str(type(org_name_or_object))
         assert False, error_str
 
-    return org    
+    return org
 
 def get_org_repos(github_obj,org_name_or_object):
     org_obj = handle_org_name_or_object(github_obj, org_name_or_object)
