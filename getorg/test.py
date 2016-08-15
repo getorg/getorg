@@ -3,7 +3,7 @@ import getorg
 from github import Github
 
 
-k = os.environ.get('GHK')
+k = os.environ.get('random_seed')
 
 gh = Github(k)
 
