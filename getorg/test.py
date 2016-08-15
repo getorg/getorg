@@ -1,11 +1,17 @@
 import os
 import getorg
 from github import Github
+
+
 k = os.environ.get('GHK')
 
 gh = Github(k)
 
 
+def test_cluster_map_output():
+
+    getorg.orgmap.map_orgs_to_clustermap(gh, "getorg-test", "test-map")
+    
 def test_map_org():
    
     map_obj, loc_dict, metadata_dict = getorg.orgmap.map_org(gh,"getorg-test")
@@ -62,3 +68,5 @@ def test_org_events():
 
     issues_list, issues_count = getorg.orgevents.get_org_open_issues(gh, "getorg-test", days_open=0, comments=5, debug=0)
     assert issues_count == {'test': 1}
+
+

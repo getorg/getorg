@@ -90,7 +90,7 @@ def location_dict_to_jsvar(location_dict, filename, hashed_usernames = True):
 
         for user in user_list:
             user_output = hashlib.sha1(user.encode('utf-8')).hexdigest()
-            user_list_output.append(user_output) 
+            user_list_output.append(user_output)
         user_list = user_list_output
 
     user_lat_lon = [[lat,lon,user] for lat,lon,user in zip(user_list,lat_list,lon_list)]
@@ -104,16 +104,16 @@ def location_dict_to_jsvar(location_dict, filename, hashed_usernames = True):
 
 def merge_location_dict(location_dict_list):
     """
-    Takes a list of location_dicts and returns a single location_dict with all the 
+    Takes a list of location_dicts and returns a single location_dict with all the
     users and locations. Automatically merges duplicates. Requires unique user ids/names.
     """
-    
+
     assert type(location_dict_list) is list, "Must be passed a list of dicts"
     merged_loc_dict = {}
     for loc_dict in location_dict_list:
         for user,loc in loc_dict.items():
             merged_loc_dict[user] = loc
-    
+
     return merged_loc_dict
 """
 def user_url_to_username(user_url):
@@ -122,7 +122,7 @@ def user_url_to_username(user_url):
 
 def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclude_usernames = []):
     """
-    For a GitHub organization, get location for contributors to any repo in the org. 
+    For a GitHub organization, get location for contributors to any repo in the org.
 
     TODO: Break this into smaller functions. There are a lot of these.
 
@@ -133,7 +133,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
     exclude_usernames : list of strings, optional
         usernames to not include in the returned list
     debug : int, optional
-    
+
     Returns
     ----------
     location_dict : dict
@@ -148,9 +148,9 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
         .. 1 : (default) is one character per contributor, organization names
         .. 2 : one character per contributor, organization and repository names
         .. 3 : full locations for all contributors, organization and repository names
-    
+
     """
-    
+
     # Check to see if the org object is a github Org from the API or a string.
 
     # org = handle_org_name_or_object(github, org_name_or_object)
@@ -169,7 +169,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
     # Set up empty dictionaries and metadata variables
     contributor_locs = {}
     locations = []
-    metadata_dict = {'no_loc_count':0, 'user_loc_count':0, 
+    metadata_dict = {'no_loc_count':0, 'user_loc_count':0,
                     'duplicate_count':0, 'error_count':0}
 
     # Instantiate geolocator api
@@ -190,10 +190,10 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
         if debug >= 2:
             print("\nQuerying repository", repo.name)
         contributor_count = 0
-        # For each contributor in the repo        
+        # For each contributor in the repo
         for contributor in repo.get_contributors():
 
-            # Convert contributor url to all-lowercase username 
+            # Convert contributor url to all-lowercase username
             contributor_username = contributor.url.rsplit('/', 1)[-1].lower()
 
             # Handle excluded usernames
@@ -214,7 +214,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
 
                 if contributor_locs.get(contributor_username) is None:
                 # If the contributor_locs dictionary doesn't have an entry for this user
-                    
+
                     # Try-Except block to handle API errors
                     try:
                         # If the contributor has no location in profile
@@ -226,8 +226,8 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
                             location=get_geolocation(geolocator, contributor.location)
 
                             #print(contributor.location, " | ", location)
-                            
-                            # Add a new entry to the dictionary. 
+
+                            # Add a new entry to the dictionary.
                             # Value is user's URL, key is geocoded location object
                             contributor_locs[contributor_username] = location
                             metadata_dict['user_loc_count'] += 1
@@ -239,7 +239,7 @@ def get_org_contributor_locations(github_obj, org_name_or_object, debug=1, exclu
                         metadata_dict['error_count'] += 1
                 else:
                     metadata_dict['duplicate_count'] += 1
-                
+
     return contributor_locs,metadata_dict
 
 @retry(stop_max_attempt_number=3)
@@ -255,9 +255,9 @@ def get_geolocation(geocode_obj, loc):
 
 
 def create_map_obj(center = [30,5], zoom = 2):
-    """    
+    """
     Creates a new ipyleaflet map object that defaults to a view of the entire world.
-    Can specify center 
+    Can specify center
     """
 
     if leaflet_enabled is False:
@@ -268,14 +268,14 @@ def create_map_obj(center = [30,5], zoom = 2):
 
 def map_location_dict(map_obj,org_location_dict):
     """
-    Maps the locations in a dictionary of {ids : geoPy Locations}. 
+    Maps the locations in a dictionary of {ids : geoPy Locations}.
 
     - **parameters** and **return types**::
 
         :map_obj: An ipyleaflet map object, can be created with orgmap.create_map_obj
         :org_location_dict: Dictionary of {ids : geopy locations}, created by get_org_contributor_locations
         :returns: ipyleaflet map object
-    
+
     """
     if leaflet_enabled is False:
         return "IPywidgets and ipyleaflet support disabled."
@@ -285,23 +285,23 @@ def map_location_dict(map_obj,org_location_dict):
             mark = Marker(location=[location.latitude,location.longitude])
             mark.visible
             map_obj += mark
-            
+
 
     return map_obj
 
 
 def location_dict_to_csv(org_location_dict, filename, hashed_usernames = True):
     """
-    Outputs a dict of { user : geopy location } to a CSV file. 
-    
+    Outputs a dict of { user : geopy location } to a CSV file.
+
     - **parameters** and **return types**::
 
         :org_location_dict: dictionary of {ids : geopy locations}, created by get_org_contributor_locations
         :filename: string of the filename to write to
         :hashed_usernames: optional parameter that returns sha-1 hash of username for privacy reasons
         :return: nothing if successful, error if exception caught
-    
-    Uses hashes of usernames by default for privacy reasons. Think carefully 
+
+    Uses hashes of usernames by default for privacy reasons. Think carefully
     about publishing location data about uniquely identifiable users. Hashing
     allows you to check unique users without revealing personal information.
     """
@@ -347,11 +347,11 @@ def csv_to_js_var(input_file, output_file):
 def location_dict_to_geojson(org_location_dict, filename, hashed_usernames = True):
     """
     CURRENTLY BROKEN!
-    Outputs a dict of users : locations to a CSV file. 
-    
+    Outputs a dict of users : locations to a CSV file.
+
     Requires org_location_dict and filename, optional hashed_usernames parameter.
-    
-    Uses hashes of usernames by default for privacy reasons. Think carefully 
+
+    Uses hashes of usernames by default for privacy reasons. Think carefully
     about publishing location data about uniquely identifiable users. Hashing
     allows you to check unique users without revealing personal information.
     """
@@ -406,7 +406,7 @@ def map_org(github_obj, org_name_or_object, debug = 1, exclude_usernames = []):
 
 def map_orgs(github_obj,org_list_or_object, debug = 1, exclude_usernames = []):
     """
-    Returns a map object, location_dict, and metadata_dict for a github organization 
+    Returns a map object, location_dict, and metadata_dict for a github organization
     (name or object) or a list of github organizations (names or objects).
 
     - **parameters** and **return types**::
@@ -417,7 +417,7 @@ def map_orgs(github_obj,org_list_or_object, debug = 1, exclude_usernames = []):
         :exclude_usernames: list of strings, support is currently broken
         :returns: set of ipyleaflet map objects, dictionary of {ids:locations}, metadata dictionary for query
 
-    - **debug levels**:: 
+    - **debug levels**::
 
         :0: quiet
         :1: (default) is one character per contributor, organization names
@@ -436,7 +436,7 @@ def map_orgs(github_obj,org_list_or_object, debug = 1, exclude_usernames = []):
     else:
         org_list = org_list_or_object
         all_org_location_dict_list = []
-        all_org_metadata_dict = {'no_loc_count':0, 'user_loc_count':0, 
+        all_org_metadata_dict = {'no_loc_count':0, 'user_loc_count':0,
                         'duplicate_count':0, 'error_count':0}
         for org in org_list:
             org_location_dict, org_metadata_dict = get_org_contributor_locations(github_obj, org, debug, exclude_usernames)
@@ -459,3 +459,42 @@ def map_orgs(github_obj,org_list_or_object, debug = 1, exclude_usernames = []):
         return map_obj,all_org_location_dict,all_org_metadata_dict
 
 
+def output_html_cluster_map(org_location_dict, folder_name="cluster_map"):
+    """
+    """
+    from getorg import markercluster_output
+    import os
+    if folder_name.endswith("/") is not True:
+        folder_name = folder_name + "/"
+    
+
+    if not os.path.exists(os.path.dirname(folder_name)):
+        try:
+            os.makedirs(os.path.dirname(folder_name))
+        except OSError as exc: # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
+    leaflet_dir = folder_name + "/leaflet_dist/"
+    if not os.path.exists(os.path.dirname(leaflet_dir)):
+        try:
+            os.makedirs(os.path.dirname(leaflet_dir))
+        except OSError as exc: # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
+    markercluster_output.write_htmlmap(folder_name)
+    markercluster_output.write_screen_css(folder_name)
+    markercluster_output.write_markerclusterjs(folder_name)
+    markercluster_output.write_markerclustersrc_js(folder_name)
+    markercluster_output.write_markercluster_css(folder_name)
+    markercluster_output.write_default_css(folder_name)
+
+
+    location_dict_to_jsvar(org_location_dict, folder_name + 'org-locations.js')
+
+    return "Written map to " + folder_name
+
+def map_orgs_to_clustermap(github_obj, org_name_or_object, folder_name="cluster_map", hashed_usernames=True):
+    org_map, org_location_dict, org_metadata_dict = map_orgs(github_obj, org_name_or_object, hashed_usernames)
+    return output_html_cluster_map(org_location_dict, folder_name)
