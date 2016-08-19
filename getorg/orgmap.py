@@ -459,7 +459,7 @@ def map_orgs(github_obj,org_list_or_object, debug = 1, exclude_usernames = []):
         return map_obj,all_org_location_dict,all_org_metadata_dict
 
 
-def output_html_cluster_map(org_location_dict, folder_name="cluster_map"):
+def output_html_cluster_map(org_location_dict, folder_name="cluster_map", hashed_usernames=True):
     """
     """
     from getorg import markercluster_output
@@ -491,7 +491,7 @@ def output_html_cluster_map(org_location_dict, folder_name="cluster_map"):
     markercluster_output.write_default_css(folder_name)
 
 
-    location_dict_to_jsvar(org_location_dict, folder_name + 'org-locations.js')
+    location_dict_to_jsvar(org_location_dict, folder_name + 'org-locations.js', hashed_usernames)
 
     return "Written map to " + folder_name
 
