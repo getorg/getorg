@@ -60,4 +60,5 @@ Get information and analytics about Github organizations. Extends the pygithub l
     Out[6]: "Written map to cluster_map/map.html"
 
 ## Credits
+
 Getorg is a package based on work originally done in [some Jupyter notebooks](https://github.com/staeiou/github-analytics) with [JamiesHQ](https://github.com/JamiesHQ), [Carreau](https://github.com/Carreau) and [namisaghaei](https://github.com/namisaghaei).
