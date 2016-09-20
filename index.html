@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Getorg by getorg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Getorg</h1>
+      <h2 class="project-tagline">Get information and analytics about GitHub organizations</h2>
+      <a href="https://github.com/getorg/getorg" class="btn">View on GitHub</a>
+      <a href="https://github.com/getorg/getorg/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/getorg/getorg/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="getorg" class="anchor" href="#getorg" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>getorg</h1>
+
+<p>Get information and analytics about Github organizations. Extends the pygithub library for querying the Github API. Built for python 3 (python 2.6 does not work, python 2.7 currently works, but is not guaranteed to be supported in the future).</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="basic-functionality" class="anchor" href="#basic-functionality" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic functionality</h3>
+
+<pre><code>pip install getorg
+</code></pre>
+
+<h3>
+<a id="mapping-functionality-in-jupyter-notebooks-assuming-jupyter-is-installed" class="anchor" href="#mapping-functionality-in-jupyter-notebooks-assuming-jupyter-is-installed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mapping functionality in Jupyter notebooks (assuming Jupyter is installed)</h3>
+
+<pre><code>pip install getorg ipyleaflet
+jupyter nbextension enable --py ipyleaflet
+</code></pre>
+
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<h3>
+<a id="required-installed-by-pip" class="anchor" href="#required-installed-by-pip" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Required (installed by pip)</h3>
+
+<ul>
+<li>githubPy library for querying the Github API.</li>
+<li>geopy (specifically Nominatim) for geolocating locations.</li>
+<li>retrying for dealing with timeouts and API rate limits</li>
+</ul>
+
+<h3>
+<a id="recommended-not-installed-by-pip" class="anchor" href="#recommended-not-installed-by-pip" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recommended (not installed by pip)</h3>
+
+<ul>
+<li>Jupyter notebook, ipywidgets, and ipyleaflets for plotting maps.</li>
+</ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>(See also the Jupyter notebooks in the examples folder)</p>
+
+<h3>
+<a id="initialization" class="anchor" href="#initialization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Initialization</h3>
+
+<pre><code>from github import Github
+import getorg
+
+# A file named ghlogin.py, containing my login key in the variable gh_key
+# Get an API key (for just querying, give it no write permissions) at https://github.com/settings/tokens
+import ghlogin
+
+# You can leave login_or_token blank, but then you only get 60 queries an hour
+gh = Github(login_or_token=ghlogin.gh_key)
+</code></pre>
+
+<h3>
+<a id="if-youre-in-a-jupyter-notebook-with-ipyleaflet-support" class="anchor" href="#if-youre-in-a-jupyter-notebook-with-ipyleaflet-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>If you're in a Jupyter notebook with IPyleaflet support</h3>
+
+<pre><code>In [4]: org_leaflet_map, org_location_dict, org_metadata_dict = getorg.orgmap.map_orgs(gh, "getorg")
+
+In [5]: org_leaflet_map
+Out[5]: [a map should be displayed]
+
+In [6]: org_location_dict
+Out[6]: {'https://api.github.com/users/staeiou': Location(Berkeley, Alameda County, California, United States of America, (37.8708393, -122.2728638, 0.0))}
+
+In [7]: org_metadata_dict
+Out[7]: 
+{'duplicate_count': 0,
+ 'error_count': 0,
+ 'no_loc_count': 0,
+ 'user_loc_count': 1}
+
+In [8]: getorg.orgmap.output_html_cluster_map(org_location_dict,"cluster_map")
+Out[8]: "Written map to cluster_map/map.html"
+</code></pre>
+
+<h3>
+<a id="or-if-you-are-not-in-a-jupyter-notebook" class="anchor" href="#or-if-you-are-not-in-a-jupyter-notebook" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Or if you are not in a Jupyter notebook</h3>
+
+<pre><code>In [4]: map, org_location_dict, org_metadata_dict = getorg.orgmap.map_orgs(gh,"getorg")
+
+In [5]: org_location_dict
+Out[5]: 
+{'https://api.github.com/users/staeiou': Location(Berkeley, Alameda County, California, United States of America, (37.8708393, -122.2728638, 0.0))}
+
+In [6]: getorg.orgmap.output_html_cluster_map(org_location_dict,"cluster_map")
+Out[6]: "Written map to cluster_map/map.html"
+</code></pre>
+
+<h2>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Credits</h2>
+
+<p>Getorg is a package based on work originally done in <a href="https://github.com/staeiou/github-analytics">some Jupyter notebooks</a> with <a href="https://github.com/JamiesHQ">JamiesHQ</a>, <a href="https://github.com/Carreau">Carreau</a> and <a href="https://github.com/namisaghaei">namisaghaei</a>.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/getorg/getorg">Getorg</a> is maintained by <a href="https://github.com/getorg">getorg</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
