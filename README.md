@@ -1,5 +1,7 @@
 # getorg
-Github has a good API for some things, but there are many queries that the Github API does not natively support in one easy call. Organization-level queries are a particular pain point. Getorg is a project (very much in beta) to make it easy to get many different kinds of information and analytics about Github repositories and organizations. It uses the [pygithub](https://github.com/PyGithub/PyGithub) library for querying the Github API. Built for python 3 (python 2.6 does not work, python 2.7 currently works, but is not guaranteed to be supported in the future).
+Github has a good API for some things, but there are many queries that the Github API does not natively support in one easy call. Organization-level queries are a particular pain point. Getorg is a project (very much in beta) to make it easy to get many different kinds of information and analytics about Github repositories and organizations. 
+
+Getorg uses the [pygithub](https://github.com/PyGithub/PyGithub) library for querying the Github API. It is built for python 3 (python 2.6 does not work, python 2.7 currently works, but is not guaranteed to be supported in the future).
 
 ## Installation
 ### Basic functionality
