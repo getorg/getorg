@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>getorg package &#8212; getorg 0.3.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="API.html" />
+    <link rel="prev" title="getorg" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getorg-package">
+<h1>getorg package<a class="headerlink" href="#getorg-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-getorg.core">
+<span id="getorg-core-module"></span><h2>getorg.core module<a class="headerlink" href="#module-getorg.core" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="getorg.core.api_to_web_url">
+<code class="descclassname">getorg.core.</code><code class="descname">api_to_web_url</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.core.api_to_web_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.core.get_org_repos">
+<code class="descclassname">getorg.core.</code><code class="descname">get_org_repos</code><span class="sig-paren">(</span><em>github_obj</em>, <em>org_name_or_object</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.core.get_org_repos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.core.handle_org_name_or_object">
+<code class="descclassname">getorg.core.</code><code class="descname">handle_org_name_or_object</code><span class="sig-paren">(</span><em>github_obj</em>, <em>org_name_or_object</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.core.handle_org_name_or_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in either an org name or Github Organization object, and returns
+a Github Organization object.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-getorg.markercluster_output">
+<span id="getorg-markercluster-output-module"></span><h2>getorg.markercluster_output module<a class="headerlink" href="#module-getorg.markercluster_output" title="Permalink to this headline">¶</a></h2>
+<p>Files for outputting to a standalone HTML/js markercluster leaflet file
+Markercluster is released under the MIT license
+<a class="reference external" href="https://github.com/Leaflet/Leaflet.markercluster">https://github.com/Leaflet/Leaflet.markercluster</a></p>
+<p>Copyright 2012 David Leaver</p>
+<p>Leaflet is released under an MIT compatible license
+Copyright (c) 2010-2016, Vladimir Agafonkin
+Copyright (c) 2010-2011, CloudMade</p>
+<p><a class="reference external" href="https://github.com/Leaflet/Leaflet">https://github.com/Leaflet/Leaflet</a></p>
+<dl class="function">
+<dt id="getorg.markercluster_output.write_default_css">
+<code class="descclassname">getorg.markercluster_output.</code><code class="descname">write_default_css</code><span class="sig-paren">(</span><em>folder_name</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.markercluster_output.write_default_css" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.markercluster_output.write_htmlmap">
+<code class="descclassname">getorg.markercluster_output.</code><code class="descname">write_htmlmap</code><span class="sig-paren">(</span><em>folder_name</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.markercluster_output.write_htmlmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.markercluster_output.write_markercluster_css">
+<code class="descclassname">getorg.markercluster_output.</code><code class="descname">write_markercluster_css</code><span class="sig-paren">(</span><em>folder_name</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.markercluster_output.write_markercluster_css" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.markercluster_output.write_markerclusterjs">
+<code class="descclassname">getorg.markercluster_output.</code><code class="descname">write_markerclusterjs</code><span class="sig-paren">(</span><em>folder_name</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.markercluster_output.write_markerclusterjs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.markercluster_output.write_markerclustersrc_js">
+<code class="descclassname">getorg.markercluster_output.</code><code class="descname">write_markerclustersrc_js</code><span class="sig-paren">(</span><em>folder_name</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.markercluster_output.write_markerclustersrc_js" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.markercluster_output.write_screen_css">
+<code class="descclassname">getorg.markercluster_output.</code><code class="descname">write_screen_css</code><span class="sig-paren">(</span><em>folder_name</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.markercluster_output.write_screen_css" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-getorg.orgevents">
+<span id="getorg-orgevents-module"></span><h2>getorg.orgevents module<a class="headerlink" href="#module-getorg.orgevents" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="getorg.orgevents.get_org_open_issues">
+<code class="descclassname">getorg.orgevents.</code><code class="descname">get_org_open_issues</code><span class="sig-paren">(</span><em>github_obj</em>, <em>org_name_or_obj</em>, <em>days_open=0</em>, <em>comments=0</em>, <em>debug=1</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgevents.get_org_open_issues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all open issues for an organization.</p>
+<p>Optional parameter days_open to only get issues open for longer than a 
+certain number of days (can pass float values for days).</p>
+<p>TODO: more debug status messages, like in map_orgs</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-getorg.orgmap">
+<span id="getorg-orgmap-module"></span><h2>getorg.orgmap module<a class="headerlink" href="#module-getorg.orgmap" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="getorg.orgmap.create_map_obj">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">create_map_obj</code><span class="sig-paren">(</span><em>center=[30, 5], zoom=2</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.create_map_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new ipyleaflet map object that defaults to a view of the entire world.
+Can specify center</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.csv_to_js_var">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">csv_to_js_var</code><span class="sig-paren">(</span><em>input_file</em>, <em>output_file</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.csv_to_js_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a CSV file to a Javascript file with one long list variable.</p>
+<p>CSV file must be in the format of: point info, longitude, latitude</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.get_geolocation">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">get_geolocation</code><span class="sig-paren">(</span><em>geocode_obj</em>, <em>loc</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.get_geolocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper function around geopy&#8217;s geocode function. Used for retry, which will
+run it at most 3 times to get a non-error return value. It will not retry if
+it successfully returns a value.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.get_org_contributor_locations">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">get_org_contributor_locations</code><span class="sig-paren">(</span><em>github_obj</em>, <em>org_name_or_object</em>, <em>debug=1</em>, <em>exclude_usernames=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.get_org_contributor_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a GitHub organization, get location for contributors to any repo in the org.</p>
+<p>TODO: Break this into smaller functions. There are a lot of these.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>github_obj</strong> : Pygithub Github() object</p>
+<p><strong>org_name_org_object</strong> : string or Github org object</p>
+<p><strong>exclude_usernames</strong> : list of strings, optional</p>
+<blockquote>
+<div><p>usernames to not include in the returned list</p>
+</div></blockquote>
+<p><strong>debug</strong> : int, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>location_dict</strong> : dict</p>
+<blockquote>
+<div><p>dictionary of {username URLS : geopy Locations}</p>
+</div></blockquote>
+<p><strong>metadata_dict</strong> : dict</p>
+<blockquote class="last">
+<div><p>dictionary of metadata about the org and the query</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<dl class="docutils">
+<dt>Debug levels:</dt>
+<dd></dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.location_dict_to_csv">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">location_dict_to_csv</code><span class="sig-paren">(</span><em>org_location_dict</em>, <em>filename</em>, <em>hashed_usernames=True</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.location_dict_to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs a dict of { user : geopy location } to a CSV file.</p>
+<ul>
+<li><p class="first"><strong>parameters</strong> and <strong>return types</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">org_location_dict</span><span class="p">:</span> <span class="n">dictionary</span> <span class="n">of</span> <span class="p">{</span><span class="n">ids</span> <span class="p">:</span> <span class="n">geopy</span> <span class="n">locations</span><span class="p">},</span> <span class="n">created</span> <span class="n">by</span> <span class="n">get_org_contributor_locations</span>
+<span class="p">:</span><span class="n">filename</span><span class="p">:</span> <span class="n">string</span> <span class="n">of</span> <span class="n">the</span> <span class="n">filename</span> <span class="n">to</span> <span class="n">write</span> <span class="n">to</span>
+<span class="p">:</span><span class="n">hashed_usernames</span><span class="p">:</span> <span class="n">optional</span> <span class="n">parameter</span> <span class="n">that</span> <span class="n">returns</span> <span class="n">sha</span><span class="o">-</span><span class="mi">1</span> <span class="nb">hash</span> <span class="n">of</span> <span class="n">username</span> <span class="k">for</span> <span class="n">privacy</span> <span class="n">reasons</span>
+<span class="p">:</span><span class="k">return</span><span class="p">:</span> <span class="n">nothing</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">error</span> <span class="k">if</span> <span class="n">exception</span> <span class="n">caught</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Uses hashes of usernames by default for privacy reasons. Think carefully
+about publishing location data about uniquely identifiable users. Hashing
+allows you to check unique users without revealing personal information.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.location_dict_to_geocoord_dict">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">location_dict_to_geocoord_dict</code><span class="sig-paren">(</span><em>location_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.location_dict_to_geocoord_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a dictionary of {users : geopy location objects} to {users : [longitude, latitude]}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.location_dict_to_geojson">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">location_dict_to_geojson</code><span class="sig-paren">(</span><em>org_location_dict</em>, <em>filename</em>, <em>hashed_usernames=True</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.location_dict_to_geojson" title="Permalink to this definition">¶</a></dt>
+<dd><p>CURRENTLY BROKEN!
+Outputs a dict of users : locations to a CSV file.</p>
+<p>Requires org_location_dict and filename, optional hashed_usernames parameter.</p>
+<p>Uses hashes of usernames by default for privacy reasons. Think carefully
+about publishing location data about uniquely identifiable users. Hashing
+allows you to check unique users without revealing personal information.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.location_dict_to_jsvar">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">location_dict_to_jsvar</code><span class="sig-paren">(</span><em>location_dict</em>, <em>filename</em>, <em>hashed_usernames=True</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.location_dict_to_jsvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a dictionary of {users : geopy location objects} to a Javascript file containing
+a single variable, a list of [user, latitude, longitude]. For use with the clustered
+leaflets html page in /examples/org_map/.</p>
+<ul>
+<li><p class="first"><strong>parameters</strong> and <strong>return types</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">location_dict</span><span class="p">:</span> <span class="n">dictionary</span> <span class="n">of</span> <span class="p">{</span><span class="n">users</span> <span class="p">:</span> <span class="n">geopy</span> <span class="n">location</span> <span class="n">objects</span><span class="p">}</span>
+<span class="p">:</span><span class="n">filename</span><span class="p">:</span> <span class="n">string</span> <span class="n">of</span> <span class="n">filename</span> <span class="n">to</span> <span class="n">write</span> <span class="n">to</span>
+<span class="p">:</span><span class="n">hashed_usernames</span><span class="p">:</span> <span class="n">replace</span> <span class="n">usernames</span> <span class="k">with</span> <span class="n">sha1</span> <span class="n">hashes</span> <span class="k">for</span> <span class="n">privacy</span>
+<span class="p">:</span><span class="n">returns</span><span class="p">:</span> <span class="n">success</span><span class="o">/</span><span class="n">failure</span> <span class="n">message</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.location_dict_to_lists">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">location_dict_to_lists</code><span class="sig-paren">(</span><em>location_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.location_dict_to_lists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a dictionary of {users : geopy location objects} to three lists
+of users, longitude, and latitude. Useful for using the zip() function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.map_location_dict">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">map_location_dict</code><span class="sig-paren">(</span><em>map_obj</em>, <em>org_location_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.map_location_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps the locations in a dictionary of {ids : geoPy Locations}.</p>
+<ul>
+<li><p class="first"><strong>parameters</strong> and <strong>return types</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">map_obj</span><span class="p">:</span> <span class="n">An</span> <span class="n">ipyleaflet</span> <span class="nb">map</span> <span class="nb">object</span><span class="p">,</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="k">with</span> <span class="n">orgmap</span><span class="o">.</span><span class="n">create_map_obj</span>
+<span class="p">:</span><span class="n">org_location_dict</span><span class="p">:</span> <span class="n">Dictionary</span> <span class="n">of</span> <span class="p">{</span><span class="n">ids</span> <span class="p">:</span> <span class="n">geopy</span> <span class="n">locations</span><span class="p">},</span> <span class="n">created</span> <span class="n">by</span> <span class="n">get_org_contributor_locations</span>
+<span class="p">:</span><span class="n">returns</span><span class="p">:</span> <span class="n">ipyleaflet</span> <span class="nb">map</span> <span class="nb">object</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.map_org">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">map_org</code><span class="sig-paren">(</span><em>github_obj</em>, <em>org_name_or_object</em>, <em>debug=1</em>, <em>exclude_usernames=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.map_org" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a map object, location_dict, and metadata_dict for a Github organization.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.map_orgs">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">map_orgs</code><span class="sig-paren">(</span><em>github_obj</em>, <em>org_list_or_object</em>, <em>debug=1</em>, <em>exclude_usernames=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.map_orgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a map object, location_dict, and metadata_dict for a github organization
+(name or object) or a list of github organizations (names or objects).</p>
+<ul>
+<li><p class="first"><strong>parameters</strong> and <strong>return types</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">github_obj</span><span class="p">:</span> <span class="n">pygithub</span> <span class="n">Github</span> <span class="nb">object</span><span class="p">,</span> <span class="n">created</span> <span class="k">with</span> <span class="n">Github</span><span class="p">()</span>
+<span class="p">:</span><span class="n">org_list_or_object</span><span class="p">:</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">Github</span> <span class="n">org</span> <span class="n">objects</span><span class="p">,</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">strings</span><span class="p">,</span> <span class="n">Github</span> <span class="n">org</span> <span class="nb">object</span><span class="p">,</span> <span class="ow">or</span> <span class="n">string</span><span class="o">.</span>
+<span class="p">:</span><span class="n">debug</span><span class="p">:</span> <span class="n">level</span> <span class="n">of</span> <span class="n">debug</span><span class="o">/</span><span class="n">verbosity</span> <span class="k">for</span> <span class="n">printing</span> <span class="n">status</span> <span class="n">updates</span> <span class="p">(</span><span class="n">see</span> <span class="n">below</span><span class="p">)</span>
+<span class="p">:</span><span class="n">exclude_usernames</span><span class="p">:</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">strings</span><span class="p">,</span> <span class="n">support</span> <span class="ow">is</span> <span class="n">currently</span> <span class="n">broken</span>
+<span class="p">:</span><span class="n">returns</span><span class="p">:</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">ipyleaflet</span> <span class="nb">map</span> <span class="n">objects</span><span class="p">,</span> <span class="n">dictionary</span> <span class="n">of</span> <span class="p">{</span><span class="n">ids</span><span class="p">:</span><span class="n">locations</span><span class="p">},</span> <span class="n">metadata</span> <span class="n">dictionary</span> <span class="k">for</span> <span class="n">query</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>debug levels</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">0</span><span class="p">:</span> <span class="n">quiet</span>
+<span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="n">default</span><span class="p">)</span> <span class="ow">is</span> <span class="n">one</span> <span class="n">character</span> <span class="n">per</span> <span class="n">contributor</span><span class="p">,</span> <span class="n">organization</span> <span class="n">names</span>
+<span class="p">:</span><span class="mi">2</span><span class="p">:</span> <span class="n">one</span> <span class="n">character</span> <span class="n">per</span> <span class="n">contributor</span><span class="p">,</span> <span class="n">organization</span> <span class="ow">and</span> <span class="n">repository</span> <span class="n">names</span>
+<span class="p">:</span><span class="mi">3</span><span class="p">:</span> <span class="n">full</span> <span class="n">locations</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">contributors</span><span class="p">,</span> <span class="n">organization</span> <span class="ow">and</span> <span class="n">repository</span> <span class="n">names</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>TODO: aggregation for metadata is just summing all the counts. Probably a smarter way to do it.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.map_orgs_to_clustermap">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">map_orgs_to_clustermap</code><span class="sig-paren">(</span><em>github_obj</em>, <em>org_name_or_object</em>, <em>folder_name='cluster_map'</em>, <em>hashed_usernames=True</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.map_orgs_to_clustermap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.merge_location_dict">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">merge_location_dict</code><span class="sig-paren">(</span><em>location_dict_list</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.merge_location_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a list of location_dicts and returns a single location_dict with all the
+users and locations. Automatically merges duplicates. Requires unique user ids/names.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getorg.orgmap.output_html_cluster_map">
+<code class="descclassname">getorg.orgmap.</code><code class="descname">output_html_cluster_map</code><span class="sig-paren">(</span><em>org_location_dict</em>, <em>folder_name='cluster_map'</em>, <em>hashed_usernames=True</em><span class="sig-paren">)</span><a class="headerlink" href="#getorg.orgmap.output_html_cluster_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-getorg.test">
+<span id="getorg-test-module"></span><h2>getorg.test module<a class="headerlink" href="#module-getorg.test" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="getorg.test.test_cluster_map_output">
+<code class="descclassname">getorg.test.</code><code class="descname">test_cluster_map_output</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_cluster_map_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.test.test_map_org">
+<code class="descclassname">getorg.test.</code><code class="descname">test_map_org</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_map_org" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.test.test_map_orgs_multiple_orgs">
+<code class="descclassname">getorg.test.</code><code class="descname">test_map_orgs_multiple_orgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_map_orgs_multiple_orgs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.test.test_map_orgs_single_org">
+<code class="descclassname">getorg.test.</code><code class="descname">test_map_orgs_single_org</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_map_orgs_single_org" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.test.test_map_orgs_single_org_with_debug_2">
+<code class="descclassname">getorg.test.</code><code class="descname">test_map_orgs_single_org_with_debug_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_map_orgs_single_org_with_debug_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.test.test_map_orgs_with_excluded_orgs">
+<code class="descclassname">getorg.test.</code><code class="descname">test_map_orgs_with_excluded_orgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_map_orgs_with_excluded_orgs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.test.test_map_output_js">
+<code class="descclassname">getorg.test.</code><code class="descname">test_map_output_js</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_map_output_js" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="getorg.test.test_org_events">
+<code class="descclassname">getorg.test.</code><code class="descname">test_org_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getorg.test.test_org_events" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-getorg">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-getorg" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">getorg package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-getorg.core">getorg.core module</a></li>
+<li><a class="reference internal" href="#module-getorg.markercluster_output">getorg.markercluster_output module</a></li>
+<li><a class="reference internal" href="#module-getorg.orgevents">getorg.orgevents module</a></li>
+<li><a class="reference internal" href="#module-getorg.orgmap">getorg.orgmap module</a></li>
+<li><a class="reference internal" href="#module-getorg.test">getorg.test module</a></li>
+<li><a class="reference internal" href="#module-getorg">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">getorg</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">getorg</a></li>
+      <li>Next: <a href="API.html" title="next chapter">API Reference</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/getorg.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Stuart Geiger.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/getorg.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
