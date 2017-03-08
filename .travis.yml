@@ -9,8 +9,19 @@ python:
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
-env: random_seed=26eb89ce891a41c26a038b4658129bff29b3fac2
+env: 
+  - random_seed=26eb89ce891a41c26a038b4658129bff29b3fac2
+  global: 
+    - s
 # command to install dependencies
-install: "pip install geopy pygithub retrying"
+install: "pip install sphinx numpydoc pillow nose geopy pygithub retrying"
 # command to run tests
-script: nosetests
+script: 
+  - nosetests
+  - sphinx-apidoc getorg -o docs/source/
+  - cd docs
+  - make html
+  - cd ..
+  - set -e
+  - pip install doctr
+  - doctr deploy
