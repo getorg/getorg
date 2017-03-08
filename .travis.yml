@@ -9,7 +9,10 @@ python:
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
-env: random_seed=26eb89ce891a41c26a038b4658129bff29b3fac2
+env:
+      global:
+        - secure: "qYWxvZg4wCAohUoKfCZJoaQrbIFMJxAWOYwMxAj8s5J9LUwHlfvs0WyTANxh/PKT7I0/kRwABFHVI+eqqCFaNh99vGeUs2kYmU8Cfqf5zSi5ajW0zNHrwGoP3+EdIOKNU42rj6IBEkupkyjlqG6B7fiscSPli80Hers/pqusChJHbBC9iFSJLqU3QUBlTOxk3o629oOJKjdByx7WcGCv46a7nadjOKFiOfyTAHkKxfrL5g/BcAH+fQWbWELxEXle7IvYjPU8/0NJV5+61OXCMlUPiqGqj4hFf15cU2CD5owCITaO/g0VCkLuRAn4jBRqJQqoXRTINqjsp2oVazHJ89C0NFQGdGQi2DAVDTxrrQ+VuYe9mi5X9fTx5jZOkeFGUezg00/noBpcYvRkU7Y//jPHSncZgncWluRY422oqcL7YIFEGV77U42cxUVsEqZY9IoYA30EVsgwzBVtZHvA1rnfUkfBE+ZzUfemyQHguHwzr6Kd3mH/gb2rsWrU9Z148synvr26vXxZFesu8fMUbnPSAoNyQ+1de6LSOlGJx3SwpVId2MRQ4YEMPiVljZLxwLKytKzONdjGGAvkDmX9gEKLo5Tis2Ph/7cvHAwrcbjxQPYp1Fo5vT+q96DZv3edfkAr+VyA+GZsDoMod+7UJncficZ/Hd9hMNvv7VXRRHw="
+        - random_seed=26eb89ce891a41c26a038b4658129bff29b3fac2
 # command to install dependencies
 install: "pip install sphinx numpydoc pillow nose geopy pygithub retrying"
 # command to run tests
