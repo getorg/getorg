@@ -24,4 +24,4 @@ script:
   - cd ..
   - set -e
   - pip install doctr
-  - doctr deploy
+  - doctr deploy --gh-pages-docs .
